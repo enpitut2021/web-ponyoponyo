@@ -1,7 +1,7 @@
 import React ,{ useRef } from 'react';
 import axios from 'axios';
 import styles from "./episode.module.css";
-import imgURL from './1.png';
+
 
 
 const episode_page = () => {
