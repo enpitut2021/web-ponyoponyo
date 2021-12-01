@@ -9,7 +9,7 @@ const episode_page = () => {
   const handleClick = () => {
     axios({
       method: "POST",
-      url: "http://34.145.47.141:9002/episode",
+      url: "https://api.digital-future.jp/episode",
       data: {
         user_id: inputEl1.current!!.value,
         desc: inputEl2.current!!.value,
