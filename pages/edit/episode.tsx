@@ -28,7 +28,7 @@ const episode_page = () => {
             <br/>
             <input className={styles.font_2} ref={inputEl1} type="text" placeholder={"ユーザー名を入力"}/>
             <br/>
-            <input className={styles.font_2} ref={inputEl2} type="text" placeholder={"恥ずかしエピソードを入力"}/>
+            <input className={styles.font_2} ref={inputEl2} type="text" placeholder={"恥ずかしいエピソードを入力"}/>
             <br/>
             <button className={styles.font} onClick={handleClick}>登録</button>
         </div>
