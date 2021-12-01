@@ -15,7 +15,7 @@ const todo_page = () => {
                 method: 'POST',
                 url: 'https://api.digital-future.jp/task',
                 data: {name: inputEl1.current.value, deadline: inputEl2.current.value, is_finished: false}
-            }).then(response => console.log('response body:', response.data));
+            }).then(response => console.log('response body:', response.data.tasks));
         }
     }
 
