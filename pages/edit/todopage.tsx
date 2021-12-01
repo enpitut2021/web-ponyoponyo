@@ -5,6 +5,7 @@ const todo_page = () => {
     const inputEl1 = useRef<HTMLDivElement>(null);
     const inputEl2 = useRef<HTMLDivElement>(null);
     const inputEl3 = useRef<HTMLDivElement>(null);
+    const inputEl4 = useRef<HTMLDivElement>(null);
 
     const handleClick = () => { 
         const cur_time = new Date()
@@ -13,9 +14,9 @@ const todo_page = () => {
         if (inputEl1.current.value.length !== 0 && getTime < getDdl) {
         axios({
             method : 'POST',
-            url    : 'http://localhost:9002/task/read',
-            data   : { name: inputEl1.current.value, deadline: inputEl2.current.value, is_finished:false}
-        }).then(response => console.log('response body:', response.data));
+            url    : 'https://api.digital-future.jp/task',
+            data   : { name: inputEl1.current.value, deadline: inputEl2.current.value + inputEl4.current.value, is_finished:false}
+        }).then(response => console.log('response body:', response.data.tasks));
         }
     }
 
@@ -23,14 +24,16 @@ const todo_page = () => {
 
 
 
-    const data=[{name:"finish my work", deadline:"2021-12-05", id:"1", is_finished:true}]
+    //{task:[{name:"finish my work", deadline:"2021-12-05", id:"1", is_finished:true}{}{}{}]}
+    //task:[{}][{}][{}]
 
-    const [data, setData] = useState();
+
+    const [data, setData] = useState({ tasks: [] });
 
         useEffect(() => {
         const fetchData = async () => {
         const result = await axios(
-            'http://localhost:9002/task',
+            'https://api.digital-future.jp/task/read',
         );
 
         setData(result.data);
@@ -44,7 +47,7 @@ const todo_page = () => {
     const handleOnchange =() =>{
         axios({
             method : 'POST',
-            url    : 'http://localhost:9002/task/read',
+            url    : 'https://api.digital-future.jp/task',
             data   : { id: inputEl3.current.id, is_finished:inputEl3.current.checked}
         }).then(response => console.log('response body:', response.data));
     }
@@ -61,27 +64,31 @@ const todo_page = () => {
                 ref={inputEl2}
                 type="date"
             />
+            <input
+                ref={inputEl4}
+                type="time"
+            />
             <button 
                 onClick={handleClick}
             >登録
             </button>
 
 
-            {data.map(data => (
+            {data.tasks.map(task => (
             <ul>
             <li>
                 <input
                 ref={inputEl3}
-                id={data.id}
+                id={task.id}
                 type="checkbox"
                 //チェックボックスの値が格納される
                 defaultChecked={false}
-                checked={data.is_finished}
+                checked={task.is_finished}
                 //値が変わるときに呼ばれる関数
                 onChange={handleOnchange}
                 />
-                <label className="todo-label" htmlFor={data.id}>
-                {data.name}&emsp;&emsp;&emsp;{data.deadline}
+                <label className="todo-label" htmlFor={task.id}>
+                {task.name}&emsp;&emsp;&emsp;{task.deadline}
                 </label>
             </li>
             </ul>
@@ -90,4 +97,5 @@ const todo_page = () => {
         </div>
     )
 }
+
 export default todo_page;
