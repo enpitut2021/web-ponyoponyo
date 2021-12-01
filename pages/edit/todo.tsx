@@ -92,6 +92,7 @@ function TodoPage() {
         );
       })}
       <Link href={"/edit/episode"}>恥ずかしエピソードを登録</Link>
+      <Link href={"/edit/todopage"}>todo</Link>
     </div>
   );
 }
