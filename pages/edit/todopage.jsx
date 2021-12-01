@@ -47,40 +47,40 @@ const todo_page = () => {
 
     // @ts-ignore
     return (<>
-            <div>
-                <input
-                    ref={inputEl1}
-                    type="text"
-                    placeholder={"Enter your tasks here"}
-                /><br/>
-                <input
-                    ref={inputEl2}
-                    type="date"
-                />
-                <button
-                    onClick={handleClick}
-                >登録
-                </button>
-                {data !== undefined ? data.map(item => (
+        <div>
+            <input
+                ref={inputEl1}
+                type="text"
+                placeholder={"Enter your tasks here"}
+            /><br/>
+            <input
+                ref={inputEl2}
+                type="date"
+            />
+            <button
+                onClick={handleClick}
+            >登録
+            </button>
+            {data !== undefined ? data.map(item => (
 
-                    <ul key={uuid.v4()}>
-                        <li>
-                            <input
-                                ref={inputEl3}
-                                id={item.id}
-                                type="checkbox"
-                                //チェックボックスの値が格納される
-                                defaultChecked={false}
-                                checked={item.is_finished}
-                                //値が変わるときに呼ばれる関数
-                                onChange={handleOnchange}
-                            />
-                            <label className="todo-label" htmlFor={item.id}>
-                                {item.name}&emsp;&emsp;&emsp;{item.deadline}
-                            </label>
-                        </li>
-                    </ul>)) : <div></div>}
-            </div>
-        </>)
+                <ul key={uuid.v4()}>
+                    <li>
+                        <input
+                            ref={inputEl3}
+                            id={item.id}
+                            type="checkbox"
+                            //チェックボックスの値が格納される
+                            defaultChecked={false}
+                            checked={item.is_finished}
+                            //値が変わるときに呼ばれる関数
+                            onChange={handleOnchange}
+                        />
+                        <label className="todo-label" htmlFor={item.id}>
+                            {item.name}&emsp;&emsp;&emsp;{item.deadline}
+                        </label>
+                    </li>
+                </ul>)) : <div></div>}
+        </div>
+    </>)
 }
 export default todo_page;
