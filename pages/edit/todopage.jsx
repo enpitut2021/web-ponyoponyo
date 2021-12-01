@@ -13,7 +13,7 @@ const todo_page = () => {
         if (inputEl1.current.value.length !== 0 && getTime < getDdl) {
             axios({
                 method: 'POST',
-                url: 'http://localhost:9002/task/read',
+                url: 'https://api.digital-future.jp/task/read',
                 data: {name: inputEl1.current.value, deadline: inputEl2.current.value, is_finished: false}
             }).then(response => console.log('response body:', response.data));
         }
@@ -28,7 +28,7 @@ const todo_page = () => {
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios(
-                'http://localhost:9002/task',
+                'https://api.digital-future.jp/task',
             );
 
             setData(result.data);
@@ -41,7 +41,7 @@ const todo_page = () => {
     const handleOnchange = () => {
         axios({
             method: 'POST',
-            url: 'http://localhost:9002/task/read',
+            url: 'https://api.digital-future.jp/task/read',
             data: {id: inputEl3.current.id, is_finished: inputEl3.current.checked}
         }).then(response => console.log('response body:', response.data));
     }
