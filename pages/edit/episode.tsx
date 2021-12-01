@@ -10,7 +10,7 @@ const episode_page = () => {
     const handleClick = () => { 
         axios({
             method : 'POST',
-            url    : 'http://localhost:9002/episode',
+            url    : 'https://api.digital-future.jp/episode',
             data   : { user_id: inputEl1.current.value, desc: inputEl2.current.value}
         }).then(response => console.log('response body:', response.data));
     };
