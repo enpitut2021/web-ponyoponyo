@@ -2,10 +2,10 @@ import React ,{ useRef, useEffect, useState} from 'react';
 import axios from 'axios';
 
 const todo_page = () => {
-    const inputEl1 = useRef<HTMLDivElement>(null);
-    const inputEl2 = useRef<HTMLDivElement>(null);
-    const inputEl3 = useRef<HTMLDivElement>(null);
-    const inputEl4 = useRef<HTMLDivElement>(null);
+    const inputEl1 = useRef<any>(null);
+    const inputEl2 = useRef<any>(null);
+    const inputEl3 = useRef<any>(null);
+    const inputEl4 = useRef<any>(null);
 
 
     const cur_time = new Date()
@@ -17,8 +17,8 @@ const todo_page = () => {
         axios({
             method : 'POST',
             url    : 'https://api.digital-future.jp/task',
-            data   : { name: inputEl1.current.value, deadline: inputEl2.current.value + inputEl4.current.value, is_finished:false}
-        }).then(response => console.log('response body:', response.data.tasks));
+            data   : { user_id: "example_user_id", name: inputEl1.current.value, deadline: inputEl2.current.value, is_done:false}
+        }).then(response => console.log('response body:', response.data));
         alert("your episode has been sent")
         }
     }
@@ -39,7 +39,6 @@ const todo_page = () => {
 
         fetchData();
         }, []);
-
 
 
     const handleOnchange =() =>{
