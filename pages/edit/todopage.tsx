@@ -96,10 +96,10 @@ const todo_page = () => {
                 ref={inputEl3}
                 id={task.id}
                 type="checkbox"
-                //チェックボックスの値が格納される
+                //チェックボックスの値が格納される.
                 defaultChecked={false}
                 checked={task.is_done}
-                //値が変わるときに呼ばれる関数
+                //値が変わるときに呼ばれる関数.
                 onChange={handleOnchange}
                 />
                 <label className="todo-label" htmlFor={task.id}>
