@@ -1,23 +1,24 @@
 import React ,{ useRef, useEffect, useState} from 'react';
 import axios from 'axios';
+import Link from 'next/link';
 
-const todo_page = () => {
-    const inputEl1 = useRef<any>(null);
-    const inputEl2 = useRef<any>(null);
-    const inputEl3 = useRef<any>(null);
-    const inputEl4 = useRef<any>(null);
+const Todo_page = () => {
+    const InputEl1 = useRef<any>(null);
+    const InputEl2 = useRef<any>(null);
+    const InputEl3 = useRef<any>(null);
+    const InputEl4 = useRef<any>(null);
 
 
     const cur_time = new Date()
     const getTime = cur_time.getTime();    
 
     const handleClick = () => { 
-        const getDdl = Date.parse(inputEl2.current.value);
-        if (inputEl1.current.value.length !== 0 && getTime < getDdl) {
+        const getDdl = Date.parse(InputEl2.current.value);
+        if (InputEl1.current.value.length !== 0 && getTime < getDdl) {
         axios({
             method : 'POST',
             url    : 'https://api.digital-future.jp/task',
-            data   : { user_id: "example_user_id", name: inputEl1.current.value, deadline: inputEl2.current.value, is_done:false}
+            data   : { user_id: "example_user_id", name: InputEl1.current.value, deadline: InputEl2.current.value, is_done:false}
         }).then(response => console.log('response body:', response.data));
         alert("your episode has been sent")
         }
@@ -25,7 +26,7 @@ const todo_page = () => {
 
 
 
-    const [data, setData] = useState({ tasks: [] });
+    const [data, setData] = useState<any>({ tasks: [] });
     const [finish, setFinish] = useState('not');
 
         useEffect(() => {
@@ -45,14 +46,15 @@ const todo_page = () => {
         axios({
             method : 'POST',
             url    : 'https://api.digital-future.jp/task',
-            data   : { id: inputEl3.current.id, is_finished:inputEl3.current.checked}
+            data   : { id: InputEl3.current.id, is_finished:InputEl3.current.checked}
         }).then(response => console.log('response body:', response.data));
     }
 
     const progress = () =>{
         let countChecked = 0
         let countUnchecked = 0
-        for (const task in data.tasks){
+
+        data.tasks.map((task:any) => {
             const getDdl = Date.parse(task.deadline);
             if (task.is_done = false && getTime > getDdl){
                 countUnchecked += 1
@@ -60,7 +62,8 @@ const todo_page = () => {
             else{
                 countChecked += 1
             }
-        }
+
+        })
         const unfinished = countUnchecked / (countChecked + countUnchecked)
         if ( unfinished > 0.3){
             setFinish('');
@@ -71,16 +74,16 @@ const todo_page = () => {
     return (
         <div>
             <input
-                ref={inputEl1}
+                ref={InputEl1}
                 type="text"
                 placeholder={"Enter your tasks here"}
             /><br/>
             <input
-                ref={inputEl2}
+                ref={InputEl2}
                 type="date"
             />
             <input
-                ref={inputEl4}
+                ref={InputEl4}
                 type="time"
             />
             <button 
@@ -89,11 +92,13 @@ const todo_page = () => {
             </button>
 
 
-            {data.tasks.map(task => (
+            {
+            data.tasks.map((task:any) => (
+            <div key={task.id}>
             <ul>
             <li>
                 <input
-                ref={inputEl3}
+                ref={InputEl3}
                 id={task.id}
                 type="checkbox"
                 //チェックボックスの値が格納される.
@@ -107,13 +112,14 @@ const todo_page = () => {
                 </label>
             </li>
             </ul>
+            </div>
             ))}
         <br/>
         <p>your episode will {finish} be shown</p>
-        <a href="/edit/episode">episodeを登録</a>
+        <Link href="/edit/episode">episodeを登録</Link>
         </div>
     )
 
 }
 
-export default todo_page;
+export default Todo_page;
