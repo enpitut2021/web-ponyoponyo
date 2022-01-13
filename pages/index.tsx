@@ -24,7 +24,11 @@ const Home: NextPage = () => {
           Get started by editing{" "}
           <code className={styles.code}>
             {" "}
-            <Link href={"/edit/todopage"}>Todoリストを編集する</Link>
+            <Link href={"/edit/signin"}>sign in</Link>
+          </code>
+          <code className={styles.code}>
+            {" "}
+            <Link href={"/edit/signup"}>sign up</Link>
           </code>
         </p>
       </main>

@@ -1,16 +1,19 @@
 import React ,{ useRef, useEffect, useState} from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const Todo_page = () => {
     const InputEl1 = useRef<any>(null);
     const InputEl2 = useRef<any>(null);
     const InputEl3 = useRef<any>(null);
     const InputEl4 = useRef<any>(null);
+    const InputEl5 = useRef<any>(null);
 
 
-    const cur_time = new Date()
-    const getTime = cur_time.getTime();    
+    const cur_time = new Date();
+    const getTime = cur_time.getTime();
+    const router = useRouter(); 
 
     const handleClick = () => { 
         const getDdl = Date.parse(InputEl2.current.value);
@@ -18,7 +21,7 @@ const Todo_page = () => {
         axios({
             method : 'POST',
             url    : 'https://api.digital-future.jp/task',
-            data   : { user_id: "example_user_id", name: InputEl1.current.value, deadline: InputEl2.current.value, is_done:false}
+            data   : { user_id:router.query.input , name: InputEl1.current.value, deadline: InputEl2.current.value, is_done:false}
         }).then(response => console.log('response body:', response.data));
         alert("your episode has been sent")
         }
@@ -46,7 +49,7 @@ const Todo_page = () => {
         axios({
             method : 'POST',
             url    : 'https://api.digital-future.jp/task',
-            data   : { id: InputEl3.current.id, is_finished:InputEl3.current.checked}
+            data   : { id: InputEl3.current.id, is_done:InputEl3.current.checked}
         }).then(response => console.log('response body:', response.data));
     }
 
@@ -86,14 +89,18 @@ const Todo_page = () => {
                 ref={InputEl4}
                 type="time"
             />
+            <br/>
             <button 
                 onClick={handleClick}
             >登録
             </button>
 
 
-            {
-            data.tasks.map((task:any) => (
+
+            {data.tasks.filter((task:any) => (
+               router.query.id === task.id
+            ))
+            .map((task:any) => (
             <div key={task.id}>
             <ul>
             <li>
@@ -107,7 +114,7 @@ const Todo_page = () => {
                 //値が変わるときに呼ばれる関数.
                 onChange={handleOnchange}
                 />
-                <label className="todo-label" htmlFor={task.id}>
+                <label className="todo-label" htmlFor={task.id}> 
                 {task.name}&emsp;&emsp;&emsp;{task.deadline}
                 </label>
             </li>
