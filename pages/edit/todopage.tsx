@@ -8,12 +8,14 @@ const Todo_page = () => {
     const InputEl2 = useRef<any>(null);
     const InputEl3 = useRef<any>(null);
     const InputEl4 = useRef<any>(null);
-    const InputEl5 = useRef<any>(null);
+
 
 
     const cur_time = new Date();
     const getTime = cur_time.getTime();
     const router = useRouter(); 
+    const [data, setData] = useState<any>({ tasks: [] });
+    const [finish, setFinish] = useState('not');
 
     const handleClick = () => { 
         const getDdl = Date.parse(InputEl2.current.value);
@@ -21,39 +23,34 @@ const Todo_page = () => {
         axios({
             method : 'POST',
             url    : 'https://api.digital-future.jp/task',
-            data   : { user_id:router.query.input , name: InputEl1.current.value, deadline: InputEl2.current.value, is_done:false}
-        }).then(response => console.log('response body:', response.data));
-        alert("your episode has been sent")
+            data   : { user_id:router.query.user_id , name: InputEl1.current.value, deadline: InputEl2.current.value, is_done:false}
+        }).then(response => {
+            if(response.status === 200){alert("your task has been sent!")}
+        });
         }
     }
 
 
+    useEffect(() => {
+    const fetchData = async () => {
+    const result = await axios(
+        `https://api.digital-future.jp/task/read?user_id=${router.query.user_id}`,
+    );
 
-    const [data, setData] = useState<any>({ tasks: [] });
-    const [finish, setFinish] = useState('not');
+    setData(result.data);
+    };
 
-        useEffect(() => {
-        const fetchData = async () => {
-        const result = await axios(
-            'https://api.digital-future.jp/task/read',
-        );
-
-        setData(result.data);
-        };
-
-        fetchData();
-        }, []);
+    fetchData();
+    });
 
 
     const handleOnchange =() =>{
         axios({
             method : 'POST',
             url    : 'https://api.digital-future.jp/task',
-            data   : { id: InputEl3.current.id, is_done:InputEl3.current.checked}
+            data   : { user_id:router.query.user_id, id: InputEl3.current.id, is_done:InputEl3.current.checked}
         }).then(response => console.log('response body:', response.data));
-    }
 
-    const progress = () =>{
         let countChecked = 0
         let countUnchecked = 0
 
@@ -97,10 +94,7 @@ const Todo_page = () => {
 
 
 
-            {data.tasks.filter((task:any) => (
-               router.query.id === task.id
-            ))
-            .map((task:any) => (
+            {data.tasks.map((task:any) => (
             <div key={task.id}>
             <ul>
             <li>
@@ -114,7 +108,7 @@ const Todo_page = () => {
                 //値が変わるときに呼ばれる関数.
                 onChange={handleOnchange}
                 />
-                <label className="todo-label" htmlFor={task.id}> 
+                <label className="todo-label" htmlFor={task.id}>
                 {task.name}&emsp;&emsp;&emsp;{task.deadline}
                 </label>
             </li>
@@ -123,7 +117,7 @@ const Todo_page = () => {
             ))}
         <br/>
         <p>your episode will {finish} be shown</p>
-        <Link href="/edit/episode">episodeを登録</Link>
+        <p><Link href={"/edit/episode"}>see episodes</Link></p>
         </div>
     )
 

@@ -21,10 +21,10 @@ const Signin_page = () => {
             url: 'https://api.digital-future.jp/signin',
             data: {email: inputEl1.current!!.value, password: inputEl2.current!!.value}
         }).then(response => {
-            alert(response.status)
+            if(response.status === 200){alert("success!")}
             router.push({
                 pathname:"/edit/episode",   //URL
-                query: {id :response.data.id} //検索クエリ
+                query: {user_id :response.data.id} //検索クエリ
             })
         });
     };

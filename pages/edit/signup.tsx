@@ -19,8 +19,9 @@ const Signup_page = () => {
             method: 'POST',
             url: 'https://api.digital-future.jp/signup',
             data: {email: inputEl1.current!!.value, password: inputEl2.current!!.value}
-        }).then(response => alert(response.status));
-        
+        }).then(response => {
+            if(response.status === 200){alert("success!")}
+        });
         router.push({
             pathname:"/edit/signin",   //URL
         })
