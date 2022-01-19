@@ -46,12 +46,12 @@ const Todo_page = () => {
     } ,[data]);
 
 
-    const handleOnchange =() =>{
+    const handleOnchange = (e:any) =>{
         axios({
             method : 'POST',
             url    : 'https://api.digital-future.jp/task',
-            data   : { user_id:router.query.user_id, id: InputEl3.current.id, is_done:true}
-        })//.then(response => alert(InputEl3.current.checked));
+            data   : { user_id:router.query.user_id, id:e.target.id, is_done:e.target.checked}
+        })//.then(response => alert(e.target.checked));
 
 
         let countChecked = 0
