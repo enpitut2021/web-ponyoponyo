@@ -50,8 +50,8 @@ const Todo_page = () => {
         axios({
             method : 'POST',
             url    : 'https://api.digital-future.jp/task',
-            data   : { user_id:router.query.user_id, id: InputEl3.current.id, is_done:InputEl3.current.checked}
-        })//.then(response => alert(response.status));
+            data   : { user_id:router.query.user_id, id: InputEl3.current.id, is_done:true}
+        })//.then(response => alert(InputEl3.current.checked));
 
 
         let countChecked = 0
@@ -112,7 +112,7 @@ const Todo_page = () => {
                 onChange={handleOnchange}
                 />
                 <label className="todo-label" htmlFor={task.id}>
-                {task.name}&emsp;&emsp;&emsp;{task.deadline}{}
+                {task.name}&emsp;&emsp;&emsp;{task.deadline}
                 </label>
             </li>
             </ul>
