@@ -16,14 +16,16 @@ const Todo_page = () => {
     const router = useRouter(); 
     const [data, setData] = useState<any>({ tasks: [] });
     const [finish, setFinish] = useState('not');
+    
 
-    const handleClick = () => { 
-        const getDdl = Date.parse(InputEl2.current.value);
+    const handleClick = () => {
+        const getDdl = Date.parse(InputEl2.current.value + " " + InputEl4.current.value);
+        const ddl = new Date(InputEl2.current.value + " " + InputEl4.current.value);
         if (InputEl1.current.value.length !== 0 && getTime < getDdl) {
         axios({
             method : 'POST',
             url    : 'https://api.digital-future.jp/task',
-            data   : { user_id:router.query.user_id , name: InputEl1.current.value, deadline: InputEl2.current.value, is_done:false}
+            data   : { user_id:router.query.user_id , name: InputEl1.current.value, deadline:ddl.toUTCString() , is_done:false}
         }).then(response => {
             if(response.status === 200){alert("your task has been sent!")}
         });
@@ -41,7 +43,7 @@ const Todo_page = () => {
     };
 
     fetchData();
-    });
+    } ,[data]);
 
 
     const handleOnchange =() =>{
@@ -49,7 +51,8 @@ const Todo_page = () => {
             method : 'POST',
             url    : 'https://api.digital-future.jp/task',
             data   : { user_id:router.query.user_id, id: InputEl3.current.id, is_done:InputEl3.current.checked}
-        }).then(response => console.log('response body:', response.data));
+        })//.then(response => alert(response.status));
+
 
         let countChecked = 0
         let countUnchecked = 0
@@ -109,7 +112,7 @@ const Todo_page = () => {
                 onChange={handleOnchange}
                 />
                 <label className="todo-label" htmlFor={task.id}>
-                {task.name}&emsp;&emsp;&emsp;{task.deadline}
+                {task.name}&emsp;&emsp;&emsp;{task.deadline}{}
                 </label>
             </li>
             </ul>

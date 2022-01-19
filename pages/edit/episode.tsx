@@ -20,7 +20,7 @@ const Episode_page = () => {
         };
 
         fetchData();
-        });
+        }, [data]);
 
 
 
