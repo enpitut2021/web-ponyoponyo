@@ -89,13 +89,8 @@ const Todo_page = () => {
             if (task.is_done = false && getTime > getDdl){
                 countUnchecked += 1
             }
-            else{
-                countChecked += 1
-            }
-
         })
-        const unfinished = countUnchecked / (countChecked + countUnchecked)
-        if ( unfinished > 0.3){
+        if ( countUnchecked > 0){
             setFinish('');
         }
     }

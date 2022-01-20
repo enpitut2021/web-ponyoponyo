@@ -21,7 +21,7 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <h1 className={styles.title}>Welcome to Ponyo!!</h1>
         <p className={styles.description}>
-          Let's get started!{" "}
+          Let&apos;s get started!{" "}
           <br/>
           <code className={styles.code}>
             {" "}
