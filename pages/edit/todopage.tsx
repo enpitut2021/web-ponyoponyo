@@ -3,10 +3,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import {Modal, Upload, Button} from 'antd';
-<<<<<<< HEAD
 import styles from "./todo.module.css";
-=======
->>>>>>> 3454c7e8cc63a96d9ccf08006c304732ee544e56
 
 const Todo_page = () => {
     const InputEl1 = useRef<any>(null);
@@ -160,21 +157,12 @@ const Todo_page = () => {
             >登録
             </button>
 
-<<<<<<< HEAD
             <p className={styles.title}>
             <label htmlFor="order">Choose an order:</label>
             <select name="order" id="order" onChange={changeOrder} >
                 <option value="">--Please choose an option--</option>
                 <option value="deadline">Deadline</option>
                 <option value="task">Task</option>
-=======
-            <p>
-            <label htmlFor="order">Choose an order:</label>
-            <select name="order" id="order" onChange={changeOrder}>
-                <option value="">--Please choose an option--</option>
-                <option value="deadline">deadline</option>
-                <option value="task">task</option>
->>>>>>> 3454c7e8cc63a96d9ccf08006c304732ee544e56
             </select>
             </p>
             
@@ -208,12 +196,7 @@ const Todo_page = () => {
                 <p>You have finished several tasks.Please upload some files as the evidences</p>
         </Modal>
         <br/>
-<<<<<<< HEAD
         <p className={styles.title}><Link href={`/edit/episode?user_id=${router.query.user_id}`}>see episodes</Link></p>
-=======
-        <p>your episode will {finish} be shown</p>
-        <p><Link href={`/edit/episode?user_id=${router.query.user_id}`}>see episodes</Link></p>
->>>>>>> 3454c7e8cc63a96d9ccf08006c304732ee544e56
         </div>
     )
 
