@@ -51,13 +51,13 @@ const Episode_page = () => {
             <input className={styles.font_2} ref={inputEl1} type="text" placeholder={"恥ずかしいエピソードを入力"}/>
             <br/>
             <button className={styles.font} onClick={handleClick}>登録</button>
-            <h3>your episodes:</h3>
+            <h3 className={styles.font_3}>Your episodes:</h3>
             
             {data.episodes.filter((episode:any) => (
                router.query.user_id === episode.user_id
             )).map((episode:any) => (
-            <div key={episode.user_id}>
-            <ul><li>{episode.desc}</li></ul>
+            <div key={episode.user_id} >
+            <ul className={styles.font_3}><li>{episode.desc}</li></ul>
             </div>
             ))}
         </div>

@@ -1,0 +1,52 @@
+.input {
+    min-height: 100vh;
+    padding: 0 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(180deg, #238e92 0%, #238e92 40%, #a3a3a2 40%, #a3a3a2 100%);
+    
+}
+
+.font {
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 3.75rem;
+    line-height: 2;
+    color: #000; 
+    font-family: '游ゴシック体', sans-serif;
+    display: inline-block ;
+    text-decoration: none;
+    background: #bebebe62; 
+    border-bottom: solid 4px #627295;
+    border-radius: 3px;
+}
+
+.font:hover{
+    color: rgba(0, 0, 0, 0.678);
+    background-color: #c9c9c9;
+    text-decoration: none; 
+}
+
+.title {
+    margin: 0;
+    line-height: 1.15;
+    font-weight: 500;
+    font-size: 7.5rem;
+    line-height: 2;
+    color:snow;
+    font-family: '游ゴシック体', sans-serif;
+    text-shadow: 1px 1px 20px pink;
+}
+
+.font_2 {
+    margin: 0;
+    line-height: 1.15;
+    font-weight: 500;
+    font-size: 3rem;
+    line-height: 2;
+    color:black;
+    font-family: 'Gill Sans Extrabold', sans-serif;    
+}

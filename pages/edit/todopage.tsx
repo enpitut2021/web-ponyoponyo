@@ -2,6 +2,8 @@ import React ,{ useRef, useEffect, useState} from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import {Modal, Upload, Button} from 'antd';
+import styles from "./todo.module.css";
 
 const Todo_page = () => {
     const InputEl1 = useRef<any>(null);
@@ -15,8 +17,11 @@ const Todo_page = () => {
     const getTime = cur_time.getTime();
     const router = useRouter(); 
     const [data, setData] = useState<any>({ tasks: [] });
+    const [order, setOrder] = useState<any>();
     const [finish, setFinish] = useState('not');
-    
+    const [visible, setVisible] = useState(false);
+    const [count, setCount] = useState(1);
+    const [release, setRelease] = useState(true);
 
     const handleClick = () => {
         const getDdl = Date.parse(InputEl2.current.value + " " + InputEl4.current.value);
@@ -32,6 +37,25 @@ const Todo_page = () => {
         }
     }
 
+    const props = {
+        action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+        onChange( {file, fileList }:{file:any, fileList:any}) {
+          if (file.status !== 'uploading') {
+            console.log(file, fileList);
+            setRelease(false);
+          }
+        }
+      };
+
+    const handleOk = () => {
+        setVisible(false);
+      };
+    
+    const handleCancel = () => {
+        if (release === false){
+            setVisible(false);
+        }
+      };
 
     useEffect(() => {
     const fetchData = async () => {
@@ -51,8 +75,11 @@ const Todo_page = () => {
             method : 'POST',
             url    : 'https://api.digital-future.jp/task',
             data   : { user_id:router.query.user_id, id:e.target.id, is_done:e.target.checked}
-        })//.then(response => alert(e.target.checked));
+        }).then(() => setCount(count + 1));
 
+        if (count % 5 === 0){
+            setVisible(true);
+        }
 
         let countChecked = 0
         let countUnchecked = 0
@@ -73,34 +100,76 @@ const Todo_page = () => {
         }
     }
 
+    const compare = (a:any, b:any) => {
+        if (order === "ddl"){
+        let A = Date.parse(a.deadline); 
+        let B = Date.parse(b.deadline); 
+        if (A < B) {
+            return -1;
+          }
+          if (A > B) {
+            return 1;
+          }
+          return 0;
+        }
+        if (order === "name"){
+        let A = a.name; 
+        let B = b.name; 
+        
+        if (A < B) {
+          return -1;
+        }
+        if (A > B) {
+          return 1;
+        }
+        return 0;
+      }}
+
+
+      const changeOrder = (e:any) =>{
+          if (e.target.value === "deadline"){
+            setOrder("ddl");
+          }
+          if (e.target.value === "task"){
+            setOrder("name");
+          }
+
+      }
 
     return (
         <div>
-            <input
+            <input className={styles.title}
                 ref={InputEl1}
                 type="text"
                 placeholder={"Enter your tasks here"}
             /><br/>
-            <input
+            <input className={styles.title}
                 ref={InputEl2}
                 type="date"
             />
-            <input
+            <input className={styles.title}
                 ref={InputEl4}
                 type="time"
             />
             <br/>
-            <button 
+            <button className={styles.button}
                 onClick={handleClick}
             >登録
             </button>
 
-
-
-            {data.tasks.map((task:any) => (
+            <p className={styles.title}>
+            <label htmlFor="order">Choose an order:</label>
+            <select name="order" id="order" onChange={changeOrder} >
+                <option value="">--Please choose an option--</option>
+                <option value="deadline">Deadline</option>
+                <option value="task">Task</option>
+            </select>
+            </p>
+            
+            {data.tasks.sort(compare).map((task:any) => (
             <div key={task.id}>
             <ul>
-            <li>
+            <li className={styles.button_2}>
                 <input
                 ref={InputEl3}
                 id={task.id}
@@ -118,9 +187,16 @@ const Todo_page = () => {
             </ul>
             </div>
             ))}
+
+
+        <Modal title="WARNING" visible={visible}  onOk={handleOk} onCancel={handleCancel} okButtonProps={{ disabled: release }} cancelButtonProps={{ disabled: release }} >
+        <Upload {...props}>
+        <Button>Upload</Button>
+        </Upload>
+                <p>You have finished several tasks.Please upload some files as the evidences</p>
+        </Modal>
         <br/>
-        <p>your episode will {finish} be shown</p>
-        <p><Link href={"/edit/episode"}>see episodes</Link></p>
+        <p className={styles.title}><Link href={`/edit/episode?user_id=${router.query.user_id}`}>see episodes</Link></p>
         </div>
     )
 

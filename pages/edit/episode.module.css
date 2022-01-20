@@ -13,7 +13,7 @@
 .font {
     padding-left: 15px;
     padding-right: 15px;
-    font-size: 3.75rem;
+    font-size: 3rem;
     line-height: 2;
     color: #583566; 
     font-family: '游ゴシック体', sans-serif;
@@ -22,6 +22,12 @@
     background: #668ad8; 
     border-bottom: solid 4px #627295;
     border-radius: 3px;
+}
+
+.font:hover{
+    color: rgba(0, 0, 0, 0.678);
+    background-color: #c9c9c9;
+    text-decoration: none; 
 }
 
 .title {
@@ -42,5 +48,15 @@
     font-size: 3rem;
     line-height: 2;
     color:black;
+    font-family: 'Gill Sans Extrabold', sans-serif;    
+}
+
+.font_3 {
+    margin: 0;
+    line-height: normal;
+    font-weight: bold;
+    font-size: 1.5rem;
+    line-height: 2;
+    color:rgb(247, 244, 244);
     font-family: 'Gill Sans Extrabold', sans-serif;    
 }

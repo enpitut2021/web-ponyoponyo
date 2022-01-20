@@ -6,6 +6,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #d3e5e7ce;
 }
 
 .main {
@@ -47,7 +48,7 @@
 .title {
   margin: 0;
   line-height: 1.15;
-  font-size: 4rem;
+  font-size: 7rem;
 }
 
 .title,
@@ -57,16 +58,25 @@
 
 .description {
   line-height: 1.5;
-  font-size: 1.5rem;
+  font-size: 3rem;
 }
 
 .code {
-  background: #fafafa;
-  border-radius: 5px;
+  background: #5499b462;
+  outline: 5px ridge #238e92;
+  border-radius: 10px;
   padding: 0.75rem;
-  font-size: 1.1rem;
+  font-size: 2rem;
   font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
     Bitstream Vera Sans Mono, Courier New, monospace;
+  opacity: 75;
+  text-decoration: none;
+}
+
+.code:hover{
+  color: #000;
+  background-color: #c9c9c9;
+  text-decoration: none; 
 }
 
 .grid {

@@ -21,14 +21,16 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <h1 className={styles.title}>Welcome to Ponyo!!</h1>
         <p className={styles.description}>
-          Get started by editing{" "}
+          Let's get started!{" "}
+          <br/>
           <code className={styles.code}>
             {" "}
-            <Link href={"/edit/signin"}>sign in</Link>
+            <Link href={"/edit/signup"}>1.Sign up</Link>
           </code>
+          <br/>
           <code className={styles.code}>
             {" "}
-            <Link href={"/edit/signup"}>sign up</Link>
+            <Link href={"/edit/signin"}>2.Sign in</Link>
           </code>
         </p>
       </main>
