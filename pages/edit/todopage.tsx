@@ -15,6 +15,7 @@ const Todo_page = () => {
     const getTime = cur_time.getTime();
     const router = useRouter(); 
     const [data, setData] = useState<any>({ tasks: [] });
+    const [order, setOrder] = useState<any>();
     const [finish, setFinish] = useState('not');
     
 
@@ -73,6 +74,41 @@ const Todo_page = () => {
         }
     }
 
+    const compare = (a:any, b:any) => {
+        if (order === "ddl"){
+        let A = Date.parse(a.deadline); 
+        let B = Date.parse(b.deadline); 
+        if (A < B) {
+            return -1;
+          }
+          if (A > B) {
+            return 1;
+          }
+          return 0;
+        }
+        if (order === "name"){
+        let A = a.name; 
+        let B = b.name; 
+        
+        if (A < B) {
+          return -1;
+        }
+        if (A > B) {
+          return 1;
+        }
+        return 0;
+      }}
+
+
+      const changeOrder = (e:any) =>{
+          if (e.target.value === "deadline"){
+            setOrder("ddl");
+          }
+          if (e.target.value === "task"){
+            setOrder("name");
+          }
+
+      }
 
     return (
         <div>
@@ -95,9 +131,16 @@ const Todo_page = () => {
             >登録
             </button>
 
-
-
-            {data.tasks.map((task:any) => (
+            <p>
+            <label htmlFor="order">Choose an order:</label>
+            <select name="order" id="order" onChange={changeOrder}>
+                <option value="">--Please choose an option--</option>
+                <option value="deadline">deadline</option>
+                <option value="task">task</option>
+            </select>
+            </p>
+            
+            {data.tasks.sort(compare).map((task:any) => (
             <div key={task.id}>
             <ul>
             <li>
