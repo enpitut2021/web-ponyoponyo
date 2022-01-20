@@ -9,6 +9,14 @@
     background: linear-gradient(180deg, #1a6d70 0%, #1a6d70 40%, #a3a3a2 40%, #a3a3a2 100%);
 }
 
+
+.PasswordReveal {
+    left: auto;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
 .font {
     padding-left: 15px;
     padding-right: 15px;

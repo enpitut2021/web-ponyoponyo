@@ -30,10 +30,16 @@ const Todo_page = () => {
         axios({
             method : 'POST',
             url    : 'https://api.digital-future.jp/task',
-            data   : { user_id:router.query.user_id , name: InputEl1.current.value, deadline:ddl.toUTCString() , is_done:false}
+            data   : { user_id:router.query.user_id , name: InputEl1.current.value, deadline:ddl.toDateString, is_done:false}
         }).then(response => {
             if(response.status === 200){alert("your task has been sent!")}
         });
+        }
+        if(InputEl1.current.value.length === 0){
+          alert("task can't be null!!")
+        }
+        if(getTime > getDdl){
+          alert("deadline can't be earlier than present!!")
         }
     }
 
@@ -81,7 +87,7 @@ const Todo_page = () => {
             setVisible(true);
         }
 
-        let countChecked = 0
+        //let countChecked = 0
         let countUnchecked = 0
 
         data.tasks.map((task:any) => {
@@ -191,6 +197,7 @@ const Todo_page = () => {
                 <p>You have finished several tasks.Please upload some files as the evidences</p>
         </Modal>
         <br/>
+        <p>your episode will {finish} be shown</p>
         <p className={styles.title}><Link href={`/edit/episode?user_id=${router.query.user_id}`}>see episodes</Link></p>
         </div>
     )

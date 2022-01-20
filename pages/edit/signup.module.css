@@ -10,6 +10,13 @@
     
 }
 
+.PasswordReveal {
+    left: auto;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
 .font {
     padding-left: 15px;
     padding-right: 15px;
