@@ -37,9 +37,9 @@ const Signin_page = () => {
             <br/>
             <br/>
             <br/>
-            <input className={styles.font_2} ref={inputEl1} type="text" placeholder={"email"}/>
+            <input className={styles.font_2} ref={inputEl1} type="text" placeholder={"Email"}/>
             <br/>
-            <input className={styles.font_2} ref={inputEl2} type="text" placeholder={"password"}/>
+            <input className={styles.font_2} ref={inputEl2} type="text" placeholder={"Password"}/>
             <br/>
             <button className={styles.font} onClick={handleClick}>Sign in</button>
         </div>

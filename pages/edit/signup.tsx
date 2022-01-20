@@ -9,6 +9,8 @@ const Signup_page = () => {
     const inputEl1 = useRef<HTMLInputElement>(null);
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const inputEl2 = useRef<HTMLInputElement>(null);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const inputEl3 = useRef<HTMLInputElement>(null);
 
     const router = useRouter(); 
 
@@ -18,7 +20,7 @@ const Signup_page = () => {
         axios({
             method: 'POST',
             url: 'https://api.digital-future.jp/signup',
-            data: {email: inputEl1.current!!.value, password: inputEl2.current!!.value}
+            data: {email: inputEl1.current!!.value,name: inputEl2.current!!.value,password: inputEl3.current!!.value}
         }).then(response => {
             if(response.status === 200){alert("success!")}
         });
@@ -35,9 +37,11 @@ const Signup_page = () => {
             <br/>
             <br/>
             <br/>
-            <input className={styles.font_2} ref={inputEl1} type="text" placeholder={"email"}/>
+            <input className={styles.font_2} ref={inputEl1} type="text" placeholder={"Email"}/>
             <br/>
-            <input className={styles.font_2} ref={inputEl2} type="text" placeholder={"password"}/>
+            <input className={styles.font_2} ref={inputEl2} type="text" placeholder={"Username"}/>
+            <br/>
+            <input className={styles.font_2} ref={inputEl3} type="text" placeholder={"Password"}/>
             <br/>
             <button className={styles.font} onClick={handleClick}>Sign up</button>
         </div>
