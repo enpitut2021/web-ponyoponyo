@@ -2,6 +2,7 @@ import React ,{ useRef, useEffect, useState} from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import {Modal, Upload, Button} from 'antd';
 
 const Todo_page = () => {
     const InputEl1 = useRef<any>(null);
@@ -17,7 +18,9 @@ const Todo_page = () => {
     const [data, setData] = useState<any>({ tasks: [] });
     const [order, setOrder] = useState<any>();
     const [finish, setFinish] = useState('not');
-    
+    const [visible, setVisible] = useState(false);
+    const [count, setCount] = useState(1);
+    const [release, setRelease] = useState(true);
 
     const handleClick = () => {
         const getDdl = Date.parse(InputEl2.current.value + " " + InputEl4.current.value);
@@ -33,6 +36,25 @@ const Todo_page = () => {
         }
     }
 
+    const props = {
+        action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+        onChange( {file, fileList }:{file:any, fileList:any}) {
+          if (file.status !== 'uploading') {
+            console.log(file, fileList);
+            setRelease(false);
+          }
+        }
+      };
+
+    const handleOk = () => {
+        setVisible(false);
+      };
+    
+    const handleCancel = () => {
+        if (release === false){
+            setVisible(false);
+        }
+      };
 
     useEffect(() => {
     const fetchData = async () => {
@@ -52,8 +74,11 @@ const Todo_page = () => {
             method : 'POST',
             url    : 'https://api.digital-future.jp/task',
             data   : { user_id:router.query.user_id, id:e.target.id, is_done:e.target.checked}
-        })//.then(response => alert(e.target.checked));
+        }).then(() => setCount(count + 1));
 
+        if (count % 5 === 0){
+            setVisible(true);
+        }
 
         let countChecked = 0
         let countUnchecked = 0
@@ -161,9 +186,17 @@ const Todo_page = () => {
             </ul>
             </div>
             ))}
+
+
+        <Modal title="WARNING" visible={visible}  onOk={handleOk} onCancel={handleCancel} okButtonProps={{ disabled: release }} cancelButtonProps={{ disabled: release }} >
+        <Upload {...props}>
+        <Button>Upload</Button>
+        </Upload>
+                <p>You have finished several tasks.Please upload some files as the evidences</p>
+        </Modal>
         <br/>
         <p>your episode will {finish} be shown</p>
-        <p><Link href={"/edit/episode"}>see episodes</Link></p>
+        <p><Link href={`/edit/episode?user_id=${router.query.user_id}`}>see episodes</Link></p>
         </div>
     )
 
