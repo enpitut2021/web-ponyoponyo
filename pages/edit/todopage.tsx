@@ -24,22 +24,19 @@ const Todo_page = () => {
     const [release, setRelease] = useState(true);
 
     const handleClick = () => {
-        const getDdl = Date.parse(InputEl2.current.value + " " + InputEl4.current.value);
+        //const getDdl = Date.parse(InputEl2.current.value + " " + InputEl4.current.value);
         const ddl = new Date(InputEl2.current.value + " " + InputEl4.current.value);
-        if (InputEl1.current.value.length !== 0 && getTime < getDdl) {
+        if (InputEl1.current.value.length !== 0 ) {
         axios({
             method : 'POST',
             url    : 'https://api.digital-future.jp/task',
             data   : { user_id:router.query.user_id , name: InputEl1.current.value, deadline:ddl.toDateString, is_done:false}
         }).then(response => {
-            if(response.status === 200){alert("your task has been sent!")}
+            if(response.status === 200){alert("success")}
         });
         }
         if(InputEl1.current.value.length === 0){
           alert("task can't be null!!")
-        }
-        if(getTime > getDdl){
-          alert("deadline can't be earlier than present!!")
         }
     }
 
