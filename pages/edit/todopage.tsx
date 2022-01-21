@@ -22,6 +22,7 @@ const Todo_page = () => {
     const [visible, setVisible] = useState(false);
     const [count, setCount] = useState(1);
     const [release, setRelease] = useState(true);
+    const [countUnchecked, setCountUnchecked] = useState(0);
 
     const handleClick = () => {
         //const getDdl = Date.parse(InputEl2.current.value + " " + InputEl4.current.value);
@@ -32,7 +33,7 @@ const Todo_page = () => {
             url    : 'https://api.digital-future.jp/task',
             data   : { user_id:router.query.user_id , name: InputEl1.current.value, deadline:ddl.toDateString, is_done:false}
         }).then(response => {
-            if(response.status === 200){alert("success")}
+            if(response.status === 200){alert(ddl)}
         });
         }
         if(InputEl1.current.value.length === 0){
@@ -84,15 +85,13 @@ const Todo_page = () => {
             setVisible(true);
         }
 
-        //let countChecked = 0
-        let countUnchecked = 0
-
         data.tasks.map((task:any) => {
             const getDdl = Date.parse(task.deadline);
             if (task.is_done = false && getTime > getDdl){
-                countUnchecked += 1
+                setCountUnchecked(countUnchecked + 1) ;
             }
         })
+
         if ( countUnchecked > 0){
             setFinish('');
         }
