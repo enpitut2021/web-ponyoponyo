@@ -33,7 +33,7 @@ const Todo_page = () => {
             url    : 'https://api.digital-future.jp/task',
             data   : { user_id:router.query.user_id , name: InputEl1.current.value, deadline:ddl.toDateString, is_done:false}
         }).then(response => {
-            if(response.status === 200){alert(ddl)}
+            if(response.status === 200){alert("successs!")}
         });
         }
         if(InputEl1.current.value.length === 0){
