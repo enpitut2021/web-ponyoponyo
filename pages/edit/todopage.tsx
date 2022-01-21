@@ -27,13 +27,15 @@ const Todo_page = () => {
     const handleClick = () => {
         //const getDdl = Date.parse(InputEl2.current.value + " " + InputEl4.current.value);
         const ddl = new Date(InputEl2.current.value + " " + InputEl4.current.value);
+        const jst = new Date('09:00:00');
+
         if (InputEl1.current.value.length !== 0 ) {
         axios({
             method : 'POST',
             url    : 'https://api.digital-future.jp/task',
-            data   : { user_id:router.query.user_id , name: InputEl1.current.value, deadline:ddl.toDateString, is_done:false}
+            data   : { user_id:router.query.user_id , name: InputEl1.current.value, deadline:ddl, is_done:false}
         }).then(response => {
-            if(response.status === 200){alert("successs!")}
+            if(response.status === 200){alert('success')}
         });
         }
         if(InputEl1.current.value.length === 0){
@@ -84,18 +86,19 @@ const Todo_page = () => {
         if (count % 5 === 0){
             setVisible(true);
         }
-
-        data.tasks.map((task:any) => {
-            const getDdl = Date.parse(task.deadline);
-            if (task.is_done = false && getTime > getDdl){
-                setCountUnchecked(countUnchecked + 1) ;
-            }
-        })
-
-        if ( countUnchecked > 0){
-            setFinish('');
-        }
     }
+
+      data.tasks.map((task:any) => {
+        const getDdl = Date.parse(task.deadline);
+        if (task.is_done = false && getTime > getDdl){
+            setCountUnchecked(countUnchecked + 1) ;
+        }
+    })
+
+      if ( countUnchecked > 0){
+          setFinish('');
+      }
+
 
     const compare = (a:any, b:any) => {
         if (order === "ddl"){
